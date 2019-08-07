@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="2069f20a-0fdc-4302-a318-bed8923d1657" name="nina-iaremenko-jsfw1-basis" url="http://nina-iaremenko-jsfw1-basis .dev-test.pro">
+        <fileTransfer host="nina-iaremenko-jsfw1-basis .dev-test.pro" port="22" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
