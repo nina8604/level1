@@ -1,5 +1,4 @@
 <?php
-    include 'dbconnect.php';
     // constant list
     const NEW_FILE_DIR = "/nina-iaremenko-jsfw1-basis/stage1/images/";
     // variable list
@@ -172,6 +171,7 @@
         ?>
 
         <br>
+
         <label for="age">Возраст </label><input type="text" name="age" value="<?=$age?>" >
         <span class="error">* <?php echo $ageErr;?></span>
         <br><br>
