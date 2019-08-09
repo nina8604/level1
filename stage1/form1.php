@@ -1,19 +1,20 @@
 <?php
     include 'dbconnect.php';
+    // constant list
+    const NEW_FILE_DIR = "/nina-iaremenko-jsfw1-basis/stage1/images/";
     // variable list
-    $fioErr = $emailErr = $phoneErr = $ageErr = $photoErr = $resumeErr = "";
-    $fio = $email = $phone = $age = $photo = $resume = "";
+    $phonesErr = $photoErr = [];
+    $fioErr = $emailErr = $phoneErr = $ageErr  = $resumeErr = $dataErr = "";
+
+    $fio = $email = $phone = $age = $photo = $resume = $success = "";
     // counter input plus phone
     $c = (isset($_POST['pc']))?$_POST['pc']:'0';
     if ( isset($_POST['plus']) ) $c++;
-
-//    $fio = (isset($_POST['fio']))?$_POST['fio']:'';
-//    $email = (isset($_POST['email']))?$_POST['email']:'';
-//    $phone = (isset($_POST['phone']))?$_POST['phone']:'';
-//    $age = (isset($_POST['age']))?$_POST['age']:'';
-//    $resume = (isset($_POST['resume']))?$_POST['resume']:'';
-//    $uploadfile = '';
-
+    $fio = (isset($_POST['fio']))?$_POST['fio']:'';
+    $email = (isset($_POST['email']))?$_POST['email']:'';
+    $phone = (isset($_POST['phone']))?$_POST['phone']:'';
+    $age = (isset($_POST['age']))?$_POST['age']:'';
+    $resume = (isset($_POST['resume']))?$_POST['resume']:'';
     if (isset($_POST['uploadBtn'])) {
         if (empty($_POST["fio"])) {
             $fioErr = "ФИО обязательно";
@@ -24,7 +25,6 @@
                 $fioErr = "Разрешены только буквы и пробелы. Повторите попытку";
             }
         }
-
         if (empty($_POST["email"])) {
             $emailErr = "Email обязательно";
         } else {
@@ -34,7 +34,6 @@
                 $emailErr = "Неверный формат email. Повторите попытку";
             }
         }
-
         if (empty($_POST["phone"])) {
             $phone = " ";
         } else {
@@ -46,6 +45,23 @@
                 }
             }
             else $phoneErr = "Неверный формат данных. Повторите попытку";
+        }
+
+        for ($i = 0; $i <= $c; $i++){
+            $phonesErr = [];
+            $phones = [];
+            if (empty($_POST['phone'.$i])) {
+                $phonesErr[$i] = "Введите телефон";
+            } else {
+                $phones[$i] = test_input ($_POST['phone'.$i]);
+                $phones[$i] = preg_replace('/\s|\+|-|\(|\)/','', $phones[$i]);
+                if (is_numeric($phones[$i])) {
+                    if (strlen($phones[$i]) < 5) {
+                        $phonesErr[$i] = "Неверно введен телефон. Повторите попытку";
+                    }
+                }
+                else $phonesErr[$i] = "Неверный формат данных. Повторите попытку";
+            }
         }
 
         if (empty($_POST["age"])) {
@@ -67,93 +83,54 @@
             $file_tmp =$_FILES['photo']['tmp_name'];
             $file_type=$_FILES['photo']['type'];
             $file_ext=strtolower(end(explode('.',$_FILES['photo']['name'])));
-
             $extensions= array("jpeg","jpg","png");
-
             if(in_array($file_ext,$extensions)=== false){
                 $photoErr[]="extension not allowed, please choose a JPEG or PNG file.";
             }
-
             if($file_size > 2097152){
                 $photoErr[]='File size must be excately 2 MB';
             }
+            if(empty($photoErr)){
+                $uploadfile = $_SERVER['DOCUMENT_ROOT'].NEW_FILE_DIR.$file_name;
 
-            if(empty($photoErr)==true){
-                if(move_uploaded_file($file_tmp,"images/".$file_name)) {
-                    $uploadfile = "images/".$file_name;
-                    echo $uploadfile."<br>";
-                    echo "Success";
+                if(!copy($file_tmp, $uploadfile)) {
+                    $photoErr[] = "Файл не перенесен в images";
+                    echo "Файл не перенесен в images";
                 }
-                else echo "Файл не перенесен в images";
             }else{
                 print_r($photoErr);
             }
         }
-
-
-//        if (!empty($_FILES['photo']['name'])){
-//            $uploaddir='/nina-iaremenko-jsfw1-basis/stage1/images/';
-////            echo $uploaddir ."<br>";
-//            $uploadfile = $uploaddir.basename($_FILES['photo']['name']);
-////            echo $uploadfile ."<br>";
-//            if (!is_uploaded_file($_FILES['photo']['tmp_name']) || !move_uploaded_file($_FILES['photo']['tmp_name'], $uploadfile)){
-//                $photoErr = 'ошибка передачи файла';
-//                echo $photoErr ."<br>";
-//            }
-//
-//        }
-
-//        if (empty($_FILES) || !isset($_FILES['photo'])) {
-//            $photoErr = 'Файл не выбран';
-//        }else {
-//            $image_data = $_FILES['photo'];
-//            $file_type_data = explode('/', $image_data);
-//            $file_type = $file_type_data[1];
-//            $new_file_name = bcrypt(timestamp()) . '.' . $file_type;
-////            move_uploaded_file('$image_data[\'tmp_name\']', "/nina-iaremenko-jsfw1-basis/stage1/images/$new_file_name");
-//            copy('$image_data[\'tmp_name\']', '/nina-iaremenko-jsfw1-basis/stage1/images/$new_file_name');
-//        }
-
-//        if (empty($_POST["photo"])) {
-//            $photoErr = 'Файл не выбран';
-//        } else {
-//            if(is_file($_POST["photo"])) {
-//
-//            }
-//            $photo_name = $_FILES["photo"]["name"];
-//            $photo = addslashes(file_get_contents($_FILES['photo']['tmp_name']));
-//
-//        }
-
         if (empty($_POST["resume"])) {
             $resumeErr = "Введите данные";
         } else {
             $resume = test_input($_POST["resume"]);
         }
-        if ($fioErr == "" && $emailErr == "" && $phoneErr == "" && $ageErr == "" && $photoErr == array() && $resumeErr == "") {
+        if ($fioErr == "" && $emailErr == "" && $phoneErr == "" && $phonesErr == [] && $ageErr == "" && $photoErr == [] && $resumeErr == "") {
             $link = mysqli_connect('localhost', 'pmauser', 'YkCx6d2N605D', 'nina_iaremenko_jsfw');
             if (!$link) {
                 echo "Ошибка:".mysqli_connect_errno().':'.mysqli_connect_error();
             }
-            else echo "Соединение с базой прошло успешно";
-//            var_dump($_FILES);
-//            var_dump($_POST);die;
-//            echo  "<br>".$fio."<br>";
-//            echo  "<br>".$email."<br>";
-//            echo  "<br>".$age."<br>";
-//            echo  "<br>".$uploadfile."<br>";
-//            echo  "<br>".$resume."<br>";
-
-
-//    echo substr(sprintf('%o', fileperms('/nina-iaremenko-jsfw1-basis/stage1/images')), -4); die;
-            $sql = "INSERT INTO user (fio, email, age, photo, resume) VALUES ('$fio', '$email', '$age', '$uploadfile', '$resume');";
-            mysqli_query($link, $sql);
-            $user_id = mysqli_insert_id();
-            $sql2 = "INSERT INTO phones (user_id, phones) VALUES ( '$user_id', '$phone');";
-            mysqli_query($link, $sql2);
+//            else echo "Соединение с базой прошло успешно";
+            $sql = "INSERT INTO `users` (fio, email, age, photo, resume) VALUES ('$fio', '$email', '$age', '$uploadfile', '$resume');";
+            $result_user = mysqli_query($link, $sql);
+            if($result_user) {
+                $user_id = mysqli_insert_id($link);
+                $sql2 = "INSERT INTO `phones` (user_id, phones) VALUES ( '$user_id', '$phone');";
+                $result_phone = mysqli_query($link, $sql2);
+                $result_phones = [];
+                foreach ($phones as $add_phone) {
+                    $sql_phones = "INSERT INTO `phones` (user_id, phones) VALUES ( '$user_id', '$add_phone');";
+                    $result_phones[] = mysqli_query($link, $sql_phones);
+                }
+            }
             mysqli_close($link);
-        }else echo "Данные не были занесены в базу данных";
-
+            if ($result_user && $result_phone && $result_phones) {
+                $fio = $email = $phone = $age = $photo = $resume = "";
+                $phones = [];
+                $success = "Данные в базу данных занесены успешно";
+            }
+        } else $dataErr = "Данные в базу данных занесены не были";
     }
 
     function test_input($data) {
@@ -162,8 +139,6 @@
         $data = htmlspecialchars($data); // converts special characters to HTML entities
         return $data;
     }
-
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -192,9 +167,11 @@
 
         <?php
         for ($i = 1; $i <= $c; $i++)
-            echo '<label for="phone'. $i .'">Телефон '. $i .' </label><input type="text" name="phone'. $i .'" value="'. $_POST['phone'.$i] .'"><br><br>'. PHP_EOL;
+            echo '<label for="phone'. $i .'">Телефон '. $i .' </label><input type="text" name="phone'. $i .'" value="'. $phones[$i] .'">
+                    <span class="error">'.$phonesErr[$i].'</span><br><br>'. PHP_EOL;
         ?>
 
+        <br>
         <label for="age">Возраст </label><input type="text" name="age" value="<?=$age?>" >
         <span class="error">* <?php echo $ageErr;?></span>
         <br><br>
@@ -206,7 +183,10 @@
         <input type="submit" name="uploadBtn" value="Отправить" />
 
     </fieldset>
-
+    <div>
+        <span><?php echo $success;?></span>
+        <span><?php echo $dataErr;?></span>
+    </div>
 
 </form>
 </body>
