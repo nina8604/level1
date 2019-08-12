@@ -7,41 +7,35 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script
-        src="https://code.jquery.com/jquery-3.4.0.min.js"
-        integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous"></script>
-    <script type="text/javascript" src="/nina-iaremenko-jsfw1-basis/stage2/script.js"></script>
+
 </head>
 <body>
     <form action="" method="post" enctype = 'multipart/form-data'>
         <fieldset>
-            <label for="fio">ФИО </label><input type="text" name="fio" value="" >
-            <span class="error">* </span>
-            <br><br>
-            <label for="email">Email </label><input type="text" name="email" value="" >
-            <span class="error">* </span>
-            <br><br>
-            <label for="phone">Телефон </label><input type="text" name="phone" value="" >
+            <label for="fio">ФИО </label><input id="fio" type="text" name="fio" value="" >
             <span class="error"> </span>
             <br><br>
-            <input type="submit" name="plus" value="Добавить телефон" >
-            <input type="hidden" name='pc' value='<?=$c?>'>
+            <label for="email">Email </label><input id="email" type="text" name="email" value="" >
+            <span class="error"> </span>
             <br><br>
+            <div id="phone_container">
+                <label for="phone0" >Телефон </label><input id="phone0" class="phones" type="text" name="value[]" placeholder="+380(xx)xxx-x-xxx">
+                <span class="error"> </span>
+                <br><br>
+            </div>
 
-<!--            --><?php
-//            for ($i = 1; $i <= $c; $i++)
-//                echo '<label for="phone'. $i .'">Телефон '. $i .' </label><input type="text" name="phone'. $i .'" value="'. $phones[$i] .'">
-//                        <span class="error">'.$phonesErr[$i].'</span><br><br>'. PHP_EOL;
-//            ?>
+            <input id="button" type="button" name="plus" value="Добавить телефон"><br><br><br>
 
-            <br>
-
-            <label for="age">Возраст </label><input type="text" name="age" value="" >
-            <span class="error">* </span>
+            <label for="age">Возраст </label><input id="age" type="text" name="age" value="">
+            <span class="error"> </span>
             <br><br>
-            <span>Загрузить фото: </span><input type="file" name="photo" />
+            <span>Загрузить фото: </span><input id="photo" type="file" name="photo" />
+            <span class="error"> </span>
             <br><br>
-            <label for="resume">Резюме: </label><textarea rows="10" cols="45" name="resume" ></textarea>
+            <label for="resume">Резюме: </label><textarea id="resume" rows="10" cols="45" name="resume" ></textarea>
             <span class="error"> </span>
             <br><br>
             <input type="submit" name="uploadBtn" value="Отправить" />
@@ -52,6 +46,11 @@
         </div>
 
     </form>
+    <br>
+    <div id="formValue">
+
+    </div>
+
 <!--    <form action="" method="post" name="Form">-->
 <!--        <div id="DynamicExtraFieldsContainer">-->
 <!--            <div id="addDynamicField">-->
@@ -66,5 +65,7 @@
 <!--        </div>-->
 <!--    </form>-->
 
+
+    <script type="text/javascript" src="/nina-iaremenko-jsfw1-basis/stage2/script.js"></script>
 </body>
 </html>
