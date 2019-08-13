@@ -22,7 +22,7 @@
             <span class="error"> </span>
             <br><br>
             <div id="phone_container">
-                <label for="phone0" >Телефон </label><input id="phone0" class="phones" type="text" name="value[]" placeholder="+380(xx)xxx-x-xxx">
+                <label for="phone0" >Телефон </label><input id="phone0" class="phones" type="text" name="value[]" data-validate="1" placeholder="+380(xx)xxx-x-xxx">
                 <span class="error"> </span>
                 <br><br>
             </div>
@@ -48,24 +48,13 @@
     </form>
     <br>
     <div id="formValue">
-
+        <div id="fio_inner"></div>
+        <div id="email_inner"></div>
+        <div id="phones_inner"></div>
+        <div id="age_inner"></div>
+        <div id="photo_inner"></div>
+        <div id="resume_inner"></div>
     </div>
-
-<!--    <form action="" method="post" name="Form">-->
-<!--        <div id="DynamicExtraFieldsContainer">-->
-<!--            <div id="addDynamicField">-->
-<!--                <input type="button" id="addDynamicExtraFieldButton" value="Добавить динамическое поле">-->
-<!--            </div>-->
-<!--            <div class="DynamicExtraField">-->
-<!--                <br>-->
-<!--                <label for="DynamicExtraField">Доп. поле </label> <input value="Удаление" type="button" class="DeleteDynamicExtraField">-->
-<!--                <br>-->
-<!--                <textarea name="DynamicExtraField[]" cols="50">test</textarea>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </form>-->
-
-
     <script type="text/javascript" src="/nina-iaremenko-jsfw1-basis/stage2/script.js"></script>
 </body>
 </html>
