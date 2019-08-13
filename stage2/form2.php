@@ -13,7 +13,8 @@
 
 </head>
 <body>
-    <form action="" method="post" enctype = 'multipart/form-data'>
+    <form action="" method="post" enctype = 'multipart/form-data' onsubmit="return checkForm()">
+<!--    <form action="" method="post" enctype = 'multipart/form-data'>-->
         <fieldset>
             <label for="fio">ФИО </label><input id="fio" type="text" name="fio" value="" >
             <span class="error"> </span>
@@ -22,7 +23,7 @@
             <span class="error"> </span>
             <br><br>
             <div id="phone_container">
-                <label for="phone0" >Телефон </label><input id="phone0" class="phones" type="text" name="value[]" data-validate="1" placeholder="+380(xx)xxx-x-xxx">
+                <label for="phone0" >Телефон </label><input id="phone0" class="phones" type="text" data-validate="1" placeholder="+380(xx)xxx-x-xxx">
                 <span class="error"> </span>
                 <br><br>
             </div>
@@ -38,7 +39,7 @@
             <label for="resume">Резюме: </label><textarea id="resume" rows="10" cols="45" name="resume" ></textarea>
             <span class="error"> </span>
             <br><br>
-            <input type="submit" name="uploadBtn" value="Отправить" />
+            <input id="submit" type="submit" name="uploadBtn" value="Отправить" />
 
         </fieldset>
         <div>
@@ -55,6 +56,9 @@
         <div id="photo_inner"></div>
         <div id="resume_inner"></div>
     </div>
+
+
+
     <script type="text/javascript" src="/nina-iaremenko-jsfw1-basis/stage2/script.js"></script>
 </body>
 </html>
