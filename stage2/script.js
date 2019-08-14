@@ -97,7 +97,7 @@ function validate_age() {
         if (isNaN(ageValue) || ageValue <= 0 || ageValue > 150 || ageValue.indexOf(".") >= 0){
             age.nextElementSibling.innerHTML = error;
             htmlAge = '';
-            document.getElementById('age_inner').innerHTML = htmlAge;
+            docplusument.getElementById('age_inner').innerHTML = htmlAge;
             return true;
         }else {
             htmlAge = 'Возраст: <b>' + ageValue + '</b><br>';
@@ -179,6 +179,7 @@ function checkForm(event) {
 
 $(document).ready(function() {
     let count = 1;
+    // create new fields for extra phones
     plus.addEventListener("click", function(){
         let input = document.createElement('INPUT');
         input.type = 'text';
