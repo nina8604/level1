@@ -112,7 +112,6 @@ function validate_photo() {
     let validateSize = 2*1024*1024;
     let photo = document.getElementById('photo');
     let photoFile = photo.files[0];
-    console.log(photoFile);
     if (photoFile === undefined){
         photo.nextElementSibling.innerHTML = errorEmpty;
         document.getElementById('photo_inner').innerHTML = '';
@@ -149,7 +148,6 @@ function validate_photo() {
 
 function validate_resume() {
     let resume = document.getElementById('resume');
-    console.log(resume);
     let resumeValue = resume.value;
     let htmlResume = '';
     if (resumeValue == ''){
@@ -166,7 +164,7 @@ function validate_resume() {
 }
 
 function checkForm(event) {
-    event.preventDefault();
+    // event.preventDefault();
     let validate = true;
 
     if ( !validate_fio() ) 		validate = false;
