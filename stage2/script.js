@@ -6,6 +6,7 @@ function show_valid_phones() {
             htmlPhone += 'Телефон: <b>' + inputs[i].value + '</b><br>';
     document.getElementById('phones_inner').innerHTML = htmlPhone;
 }
+
 let error = "Данные введены не верною Повторите попытку.";
 let errorEmpty = "*данное поле обязательно для заполнения.";
 function validate_fio() {
@@ -17,18 +18,20 @@ function validate_fio() {
         fio.nextElementSibling.innerHTML = errorEmpty;
         htmlFio = '';
         document.getElementById('fio_inner').innerHTML = htmlFio;
+        return false;
     }else {
         if (fioValue.match(letters)){
             htmlFio = 'ФИО: <b>' + fioValue + '</b><br>';
             document.getElementById('fio_inner').innerHTML = htmlFio;
             fio.nextElementSibling.innerHTML = '';
+            return true;
         }else {
             fio.nextElementSibling.innerHTML = error;
             htmlFio = '';
             document.getElementById('fio_inner').innerHTML = htmlFio;
+            return false;
         }
     }
-
 }
 
 function validate_email() {
@@ -40,40 +43,45 @@ function validate_email() {
         email.nextElementSibling.innerHTML = errorEmpty;
         htmlEmail = '';
         document.getElementById('email_inner').innerHTML = htmlEmail;
+        return false;
     } else {
         if (emailValue.match(mailFormat)){
             htmlEmail = 'email: <b>' + emailValue + '</b><br>';
             document.getElementById('email_inner').innerHTML = htmlEmail;
             email.nextElementSibling.innerHTML = '';
+            return true;
         }else {
             email.nextElementSibling.innerHTML = error;
             htmlEmail = '';
             document.getElementById('email_inner').innerHTML = htmlEmail;
+            return false;
         }
     }
 
 }
 
-function validate_phones() {
-    let phoneFormat = /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/;
-    let target = event.target;
-    if (target.className == 'phones') {
-        // console.log(target.value);
-        if (target.value == ''){
-            target.nextElementSibling.innerHTML = errorEmpty;
-            target.setAttribute('data-validate', '0');
-        } else {
-            if (target.value.match(phoneFormat)){
-                target.setAttribute('data-validate', '1');
-                target.nextElementSibling.innerHTML = '';
-            } else {
-                target.nextElementSibling.innerHTML = error;
-                target.setAttribute('data-validate', '0');
-            }
-        }
+let phoneFormat = /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/;
+function validate_phone(input) {
+    input.setAttribute('data-validate', '0');
 
-        show_valid_phones();
-    }
+    if (input.value == '')
+        input.nextElementSibling.innerHTML = errorEmpty;
+    else
+    if (input.value.match(phoneFormat)) {
+        input.setAttribute('data-validate', '1');
+        input.nextElementSibling.innerHTML = '';
+    } else
+        input.nextElementSibling.innerHTML = error;
+
+    return input.getAttribute('data-validate') == '1';
+}
+function validate_phones() {
+    let validate = true;
+    let inputs = document.getElementById('phone_container').getElementsByClassName('phones');
+    for (let i = 0; i < inputs.length; i++)
+        if ( !validate_phone(inputs[i]) )
+            validate = false;
+    return validate;
 }
 
 function validate_age() {
@@ -84,15 +92,18 @@ function validate_age() {
         age.nextElementSibling.innerHTML = errorEmpty;
         htmlAge = '';
         document.getElementById('age_inner').innerHTML = htmlAge;
+        return false;
     } else {
         if (isNaN(ageValue) || ageValue <= 0 || ageValue > 150 || ageValue.indexOf(".") >= 0){
             age.nextElementSibling.innerHTML = error;
             htmlAge = '';
             document.getElementById('age_inner').innerHTML = htmlAge;
+            return true;
         }else {
             htmlAge = 'Возраст: <b>' + ageValue + '</b><br>';
             document.getElementById('age_inner').innerHTML = htmlAge;
             age.nextElementSibling.innerHTML = '';
+            return false;
         }
     }
 }
@@ -102,89 +113,75 @@ function validate_photo() {
     let photo = document.getElementById('photo');
     let photoFile = photo.files[0];
     console.log(photoFile);
-    if (photoFile.name == ''){
+    if (photoFile === undefined){
         photo.nextElementSibling.innerHTML = errorEmpty;
         document.getElementById('photo_inner').innerHTML = '';
-        return;
+        return false;
     } else {
         if (!photoFile.type.match('image/jp.*')) {
             photo.nextElementSibling.innerHTML = "Файл неверного формата. Только JPG формат. Повторите попытку";
             document.getElementById('photo_inner').innerHTML = '';
-            return;
+            return false;
         }
         if (photoFile.size > validateSize ) {
             photo.nextElementSibling.innerHTML = "Файл превышает допустимый размер 2МВ. Повторите попытку.";
             document.getElementById('photo_inner').innerHTML = '';
-            return;
+            return false;
         }
-    }
-    let reader = new FileReader();
-    reader.onload = (function(theFile) {
-        return function(e) {
-            document.getElementById('photo_inner').innerHTML = '';
-            let span = document.createElement('span');
-            span.innerHTML = ['Ваше фото: <img class="thumb" src="', e.target.result,
-                '" title="', escape(theFile.name), '" width="150"/>'].join('');
-            document.getElementById('photo_inner').appendChild(span);
-            document.getElementById('photo').nextElementSibling.innerHTML = '';
-        };
-    })(photoFile);
+        let reader = new FileReader();
+        reader.onload = (function(theFile) {
+            return function(e) {
+                document.getElementById('photo_inner').innerHTML = '';
+                let span = document.createElement('span');
+                span.innerHTML = ['Ваше фото: <img class="thumb" src="', e.target.result,
+                    '" title="', escape(theFile.name), '" width="150"/>'].join('');
+                document.getElementById('photo_inner').appendChild(span);
+                document.getElementById('photo').nextElementSibling.innerHTML = '';
+            };
+        })(photoFile);
 
-    // Read in the image file as a data URL.
-    reader.readAsDataURL(photoFile);
+        // Read in the image file as a data URL.
+        reader.readAsDataURL(photoFile);
+        return true;
+    }
+
 }
 
 function validate_resume() {
     let resume = document.getElementById('resume');
+    console.log(resume);
     let resumeValue = resume.value;
     let htmlResume = '';
-    if (resumeValue !== ''){
-        htmlResume = 'Резюме: <pre>' + resumeValue + '</pre><br>';
-        document.getElementById('resume_inner').innerHTML = htmlResume;
-        resume.nextElementSibling.innerHTML = '';
-    }else {
+    if (resumeValue == ''){
         resume.nextElementSibling.innerHTML = errorEmpty;
         htmlResume = '';
         document.getElementById('resume_inner').innerHTML = htmlResume;
+        return false;
+    }else {
+        htmlResume = 'Резюме: <pre>' + resumeValue + '</pre><br>';
+        document.getElementById('resume_inner').innerHTML = htmlResume;
+        resume.nextElementSibling.innerHTML = '';
+        return true;
     }
 }
+
 function checkForm(event) {
+    event.preventDefault();
+    let validate = true;
 
-    if (document.getElementById('fio').value == ""){
-        document.getElementById('fio').nextElementSibling.innerHTML = errorEmpty;
-        document.getElementById('fio_inner').innerHTML = '';
-        return false;
-    }else validate_fio();
-    if (document.getElementById('email').value == "") {
-        document.getElementById('email').nextElementSibling.innerHTML = errorEmpty;
-        document.getElementById('email_inner').innerHTML = '';
-        return false
-    } else validate_email();
-    // if (event.target.className == 'phones') {
-    //     if (event.target.value == '') {
-    //         event.target.nextElementSibling.innerHTML = errorEmpty;
-    //         event.target.setAttribute('data-validate', '0');
-    //         return false;
-    //     }
-    // } else validate_phones();
-    if (document.getElementById('age').value == "") {
-        document.getElementById('age').nextElementSibling.innerHTML = errorEmpty;
-        document.getElementById('age_inner').innerHTML = '';
-        return false
-    } else validate_age();
-    validate_photo();
+    if ( !validate_fio() ) 		validate = false;
+    if ( !validate_email() )  	validate = false;
+    if ( !validate_phones() ) 	validate = false;
+    if ( !validate_age() ) 		validate = false;
+    if ( !validate_photo() ) 	validate = false;
+    if ( !validate_resume() ) 	validate = false;
 
-    if (document.getElementById('resume').value == "") {
-        document.getElementById('resume').nextElementSibling.innerHTML = errorEmpty;
-        document.getElementById('resume_inner').innerHTML = '';
-
-    } else validate_resume();
-
+    return validate;
 }
 
 $(document).ready(function() {
     let count = 1;
-    button.addEventListener("click", function(){
+    plus.addEventListener("click", function(){
         let input = document.createElement('INPUT');
         input.type = 'text';
         input.className = 'phones';
@@ -214,143 +211,33 @@ $(document).ready(function() {
 
     });
 
-    // let letters = /^[A-Za-z]+$/;
-    // let error = "Данные введены не верною Повторите попытку.";
-    // let errorEmpty = "Пожалуйста, заполните поле."
-
-    document.getElementById('fio').addEventListener( 'change', function(){
+    document.getElementById('fio').addEventListener( 'blur', function(){
         validate_fio();
-        // let fio = document.getElementById('fio').value;
-        // if (fio.match(letters)){
-        //     let htmlFio = 'ФИО: <b>' + fio + '</b><br>';
-        //     document.getElementById('fio_inner').innerHTML = htmlFio;
-        //     this.nextElementSibling.innerHTML = '';
-        // }else {
-        //     this.nextElementSibling.innerHTML = error;
-        //     htmlFio = '';
-        //     document.getElementById('fio_inner').innerHTML = htmlFio;
-        // }
     });
-    document.getElementById('email').addEventListener( 'change', function(){
+
+    document.getElementById('email').addEventListener( 'blur', function(){
         validate_email();
-        // let email = document.getElementById('email').value;
-        // let mailFormat = /^[\w]{1}[\w-\.]*@[\w-]+\.[a-z]{2,4}$/i;
-        // if (email.match(mailFormat)){
-        //     let htmlEmail = 'email: <b>' + email + '</b><br>';
-        //     document.getElementById('email_inner').innerHTML = htmlEmail;
-        //     this.nextElementSibling.innerHTML = '';
-        // }else {
-        //     this.nextElementSibling.innerHTML = error;
-        //     htmlEmail = '';
-        //     document.getElementById('email_inner').innerHTML = htmlEmail;
-        // }
     });
 
-
-    // let phoneFormat = /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/;
     let phone_container = document.getElementById('phone_container');
-
-    phone_container.addEventListener( 'change', function(event) {
-         validate_phones();
-        // let target = event.target;
-        // if (target.className == 'phones') {
-        //     console.log(target.value);
-        //     if (target.value.match(phoneFormat)){
-        //         target.setAttribute('data-validate', '1');
-        //         target.nextElementSibling.innerHTML = '';
-        //     } else {
-        //         target.nextElementSibling.innerHTML = error;
-        //         target.setAttribute('data-validate', '0');
-        //     }
-        //     show_valid_phones();
-        // }
-    }
-    );
-
-
-
-    document.getElementById('age').addEventListener( 'change', function(){
-        validate_age();
-        // let age = document.getElementById('age').value;
-        // if (isNaN(age) || age <= 0 || age > 150 || age.indexOf(".") >= 0){
-        //     this.nextElementSibling.innerHTML = error;
-        //     let htmlAge = '';
-        //     document.getElementById('age_inner').innerHTML = htmlAge;
-        // }else {
-        //     htmlAge = 'Возраст: <b>' + age + '</b><br>';
-        //     document.getElementById('age_inner').innerHTML = htmlAge;
-        //     this.nextElementSibling.innerHTML = '';
-        // }
+    phone_container.addEventListener( 'focusout', function(event) {
+        if (event.target.className == 'phones') {
+            validate_phone(event.target);
+            show_valid_phones();
+        }
     });
 
-    // let validateSize = 2*1024*1024;
+    document.getElementById('age').addEventListener( 'blur', function(){
+        validate_age();
+    });
+
     document.getElementById('photo').addEventListener( 'change', function(){
         validate_photo();
-        // let photo = this.files[0];
-        // if (!photo.type.match('image/jp.*')) {
-        //     this.nextElementSibling.innerHTML = "Файл неверного формата. Только JPG формат. Повторите попытку";
-        //     document.getElementById('photo_inner').innerHTML = '';
-        //     return;
-        // }
-        // if (photo.size > validateSize ) {
-        //     this.nextElementSibling.innerHTML = "Файл превышает допустимый размер 2МВ. Повторите попытку.";
-        //     document.getElementById('photo_inner').innerHTML = '';
-        //     return;
-        // }
-        // let reader = new FileReader();
-        // reader.onload = (function(theFile) {
-        //     return function(e) {
-        //         document.getElementById('photo_inner').innerHTML = '';
-        //         let span = document.createElement('span');
-        //         span.innerHTML = ['Ваше фото: <img class="thumb" src="', e.target.result,
-        //             '" title="', escape(theFile.name), '" width="150"/>'].join('');
-        //         document.getElementById('photo_inner').appendChild(span);
-        //         document.getElementById('photo').nextElementSibling.innerHTML = '';
-        //     };
-        // })(photo);
-        //
-        // // Read in the image file as a data URL.
-        // reader.readAsDataURL(photo);
     });
-    document.getElementById('resume').addEventListener( 'change', function(){
+
+    document.getElementById('resume').addEventListener( 'blur', function(){
         validate_resume();
-        // let resume = document.getElementById('resume').value;
-        // if (resume !== ''){
-        //     let htmlResume = 'Резюме: <pre>' + resume + '</pre><br>';
-        //     document.getElementById('resume_inner').innerHTML = htmlResume;
-        //     this.nextElementSibling.innerHTML = '';
-        // }else {
-        //     this.nextElementSibling.innerHTML = errorEmpty;
-        //     htmlResume = '';
-        //     document.getElementById('resume_inner').innerHTML = htmlResume;
-        // }
     });
-    // document.getElementById('submit').addEventListener( 'click', function(event) {
-    //     if (document.getElementById('fio').value == ""){
-    //         document.getElementById('fio').nextElementSibling.innerHTML = errorEmpty;
-    //         document.getElementById('fio_inner').innerHTML = '';
-    //         return false;
-    //     }else validate_fio();
-    //     if (document.getElementById('email').value == "") {
-    //         document.getElementById('email').nextElementSibling.innerHTML = errorEmpty;
-    //         document.getElementById('email_inner').innerHTML = '';
-    //         return false
-    //     } else validate_email();
-    //     if (event.target.className == 'phones') {
-    //         if (event.target.value == '') {
-    //             event.target.nextElementSibling.innerHTML = errorEmpty;
-    //             event.target.setAttribute('data-validate', '0');
-    //             return false;
-    //         }
-    //     } else validate_phones();
-    //     if (document.getElementById('age').value == "") {
-    //         document.getElementById('age').nextElementSibling.innerHTML = errorEmpty;
-    //         document.getElementById('age_inner').innerHTML = '';
-    //         return false
-    //     } else validate_age();
-    //     validate_photo();
-    //     validate_resume();
-    // });
 
 
 });
