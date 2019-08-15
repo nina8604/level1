@@ -6,8 +6,12 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css"
-          integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+<!--    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css"-->
+<!--          integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">-->
+    <link href="https://use.fontawesome.com/releases/v5.9.0/css/all.css" rel="stylesheet">
+<!--    https://use.fontawesome.com/releases/v5.9.0/css/v4-shims.css-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+<!--    <script defer src="https://use.fontawesome.com/releases/v5.9.0/js/all.js"></script>-->
     <style>
         @import url("/nina-iaremenko-jsfw1-basis/stage3/style/header.css");
         @import url("/nina-iaremenko-jsfw1-basis/stage3/style/main.css");
@@ -27,7 +31,7 @@
                     <ul>
                         <li><a href="#">Home</a></li>
                         <li>
-                            <a id="course" href="#">Courses</a>
+                            <a id="course" href="#">Courses<img src="/nina-iaremenko-jsfw1-basis/stage3/images/arrow_down.png" alt=""></a>
                             <ul class="sub-menu">
                                 <li><a href="#">Courses 1</a></li>
                                 <li><a href="#">Courses 2</a></li>
@@ -37,7 +41,7 @@
                         <li><a href="#">About</a></li>
                         <li><a href="#">Video</a></li>
                         <li>
-                            <a href="#">Interesting</a>
+                            <a href="#">Interesting<img src="/nina-iaremenko-jsfw1-basis/stage3/images/arrow_down.png" alt=""></a>
                             <ul class="sub-menu">
                                 <li><a href="#">Interesting 1</a></li>
                                 <li><a href="#">Interesting 2</a></li>
@@ -46,7 +50,7 @@
                         </li>
                     </ul>
                 </nav>
-                <button class="autho" type="button" class="btn btn-danger">Authorization</button>
+                <button id="autho" type="button" class="btn btn-danger">Authorization</button>
             </div>
 
         </header>
@@ -57,11 +61,11 @@
                     <label for="fio">ФИО </label><br>
                     <input id="fio" type="text" name="fio" value="" >
                     <span class="error"> </span>
-                    <br><br>
+                    <br>
                     <label for="email">E-mail </label><br>
                     <input id="email" type="text" name="email" value="" >
                     <span class="error"> </span>
-                    <br><br>
+                    <br>
                     <div id="phone_container">
                         <label for="phone0" >Телефон </label><br>
                         <input id="phone0" class="phones" type="text" data-validate="0">
@@ -74,7 +78,7 @@
                     <label for="age">Возраст </label><br>
                     <input id="age" type="text" name="age" value="">
                     <span class="error"> </span>
-                    <br><br>
+                    <br>
                     <div id="foto_container">
                         <span>Фотография </span><br>
                         <label for="photo">
@@ -86,11 +90,12 @@
                         <input id="photo" type="file" name="photo" />
                     </div>
                     <span class="error"> </span>
-                    <label for="resume">Резюме </label><br>
-                    <textarea id="resume" rows="19" cols="56" name="resume" ></textarea>
-                    <span class="error"> </span>
-                    <br><br>
-
+                    <div id="resume_box">
+                        <label for="resume">Резюме </label><br>
+                        <textarea id="resume" rows="19" cols="56" name="resume" ></textarea>
+                        <span class="error"> </span>
+                        <br><br>
+                    </div>
                 </fieldset>
             </form>
         </div>
@@ -111,10 +116,10 @@
                         <li>
                             <a href="#">Courses</a>
                             <ul>
-                                <li>Project management</li>
-                                <li>Android development</li>
-                                <li>Online marketing</li>
-                                <li>Front-end developer</li>
+                                <li><a href="#">Project management</a></li>
+                                <li><a href="#">Android development</a></li>
+                                <li><a href="#">Online marketing</a></li>
+                                <li><a href="#">Front-end developer</a></li>
                             </ul>
                         </li>
 
@@ -125,10 +130,10 @@
                         <li>
                             <a href="#">Interesting</a>
                             <ul>
-                                <li>Blog</li>
-                                <li>Youtube</li>
-                                <li>Team</li>
-                                <li>Community</li>
+                                <li><a href="#">Blog</a></li>
+                                <li><a href="#">Youtube</a></li>
+                                <li><a href="#">Team</a></li>
+                                <li><a href="#">Community</a></li>
                             </ul>
                         </li>
 
@@ -139,17 +144,17 @@
                         <li>
                             <a href="#">Social networks</a>
                             <ul>
-                                <li>Blog</li>
-                                <li>Youtube</li>
-                                <li>Team</li>
-                                <li>Community</li>
+                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
                             </ul>
                         </li>
 
                     </ul>
                 </div>
             </div>
-            <div id="buttom_footer">
+            <div id="bottom_footer">
                 <div>Terms of Service</div>
                 <div>Privacy policy</div>
             </div>
