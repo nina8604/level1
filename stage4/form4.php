@@ -6,23 +6,19 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+<!--    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css"-->
+<!--          integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">-->
     <link href="https://use.fontawesome.com/releases/v5.9.0/css/all.css" rel="stylesheet">
-    <style>
-        .sub-menu { opacity: 0;}
-        #authorization {
-            padding: 10px 22px 12px 21px;
-            background-color: #d92727;
-            border: 1px solid #d92727;
-            color: #fff;
-        }
-    </style>
+<!--    https://use.fontawesome.com/releases/v5.9.0/css/v4-shims.css-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+<!--    <script defer src="https://use.fontawesome.com/releases/v5.9.0/js/all.js"></script>-->
     <style>
         @import url("/nina-iaremenko-jsfw1-basis/stage3/style/header.css");
         @import url("/nina-iaremenko-jsfw1-basis/stage3/style/main.css");
         @import url("/nina-iaremenko-jsfw1-basis/stage3/style/footer.css");
 
     </style>
-    <script> </script>
+
 </head>
 <body>
     <div class="wrapper">
@@ -54,7 +50,7 @@
                         </li>
                     </ul>
                 </nav>
-                <button id="authorization" type="button" >Authorization</button>
+                <button id="autho" type="button" class="btn btn-danger">Authorization</button>
             </div>
 
         </header>
@@ -96,7 +92,7 @@
                     <span class="error"> </span>
                     <div id="resume_box">
                         <label for="resume">Резюме </label><br>
-                        <textarea id="resume" name="resume" ></textarea>
+                        <textarea id="resume" rows="19" cols="56" name="resume" ></textarea>
                         <span class="error"> </span>
                         <br><br>
                     </div>
@@ -167,40 +163,3 @@
     </div>
 </body>
 </html>
-
-
-<!--                <nav class="navbar navbar-expand-lg navbar-light bg-light">-->
-<!--                    <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
-<!--                        <ul class="navbar-nav mr-auto">-->
-<!--                            <li class="nav-item active">-->
-<!--                                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>-->
-<!--                            </li>-->
-<!--                            <li class="nav-item dropdown">-->
-<!--                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--                                    Courses<img src="/nina-iaremenko-jsfw1-basis/stage3/images/arrow_down.png" alt="">-->
-<!--                                </a>-->
-<!--                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
-<!--                                    <a class="dropdown-item" href="#">Course 1</a>-->
-<!--                                    <a class="dropdown-item" href="#">Courses 2</a>-->
-<!--                                    <a class="dropdown-item" href="#">Courses 3</a>-->
-<!--                                </div>-->
-<!--                            </li>-->
-<!--                            <li class="nav-item">-->
-<!--                                <a class="nav-link" href="#">About</a>-->
-<!--                            </li>-->
-<!--                            <li class="nav-item">-->
-<!--                                <a class="nav-link" href="#">Video</a>-->
-<!--                            </li>-->
-<!--                            <li class="nav-item dropdown">-->
-<!--                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--                                    Interesting<img src="/nina-iaremenko-jsfw1-basis/stage3/images/arrow_down.png" alt="">-->
-<!--                                </a>-->
-<!--                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
-<!--                                    <a class="dropdown-item" href="#">Interesting 1</a>-->
-<!--                                    <a class="dropdown-item" href="#">Interesting 2</a>-->
-<!--                                    <a class="dropdown-item" href="#">Interesting 3</a>-->
-<!--                                </div>-->
-<!--                            </li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                </nav>-->

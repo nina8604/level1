@@ -49,7 +49,7 @@ footer {
 }
 #left_box ul li ul li,
 #center_box ul li ul li {
-    font-family: 'open_sans';
+    font-family: 'Open Sans', sans-serif;
     font-size: 14px;
     padding-bottom: 13px;
     letter-spacing: 1px;
@@ -81,16 +81,12 @@ footer {
     background-color: white;
     padding: 5px 8px;
     border-radius: 25px;
-    filter: brightness(1);
-    transition: filter 0.5s ease,
-                box-shadow 0.5s ease;
 }
 #right_box ul li ul li a {
     font-size: 23px;
     color: #a9dff2;
 }
 #right_box ul li ul li:hover {
-    filter: brightness(0.95);
     box-shadow: -2px 9px 27px 2px rgba(207,207,208,.75);
     cursor: pointer;
 }
