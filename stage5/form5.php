@@ -23,7 +23,10 @@
         @import url("/nina-iaremenko-jsfw1-basis/stage5/style/footer.css");
 
     </style>
-    <script> </script>
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -68,7 +71,7 @@
         </header>
 
         <div class="main">
-            <form action="" method="post" enctype = 'multipart/form-data' >
+            <form class="form" action="" method="post" enctype = 'multipart/form-data' ">
                 <fieldset>
                     <label for="fio">ФИО </label><br>
                     <input id="fio" type="text" name="fio" value="" >
@@ -89,15 +92,15 @@
                                 <input id="plus" type="button" name="plus" value="+"><br>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="form-control">
-                                <input id="phone1" class="phones" type="text" data-validate="0">
-                                <span class="error"> </span>
-                            </div>
-                            <div class="form-control">
-                                <input id ="delete_phone" type="button" name="delete_extra_phone" value="удалить">
-                            </div>
-                        </div>
+<!--                        <div class="form-group">-->
+<!--                            <div class="form-control">-->
+<!--                                <input id="phone1" class="phones" type="text" data-validate="0">-->
+<!--                                <span class="error"> </span>-->
+<!--                            </div>-->
+<!--                            <div class="form-control">-->
+<!--                                <input id ="delete_phone" type="button" name="delete_extra_phone" value="удалить">-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
 
                     <label for="age">Возраст </label><br>
@@ -113,6 +116,7 @@
 
                         </label>
                         <input id="photo" type="file" name="photo" />
+                        <span class="error"> </span>
                     </div>
                     <span class="error"> </span>
                     <div id="resume_box">
@@ -121,6 +125,7 @@
                         <span class="error"> </span>
                         <br><br>
                     </div>
+                    <input id="submit" type="submit" name="uploadBtn" value="Отправить" />
                 </fieldset>
             </form>
         </div>
@@ -186,5 +191,6 @@
 
         </footer>
     </div>
+    <script type="text/javascript" src="script.js"></script>
 </body>
 </html>
