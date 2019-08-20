@@ -5,33 +5,47 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Document</title>
-<!--    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css"-->
-<!--          integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">-->
     <link href="https://use.fontawesome.com/releases/v5.9.0/css/all.css" rel="stylesheet">
-<!--    https://use.fontawesome.com/releases/v5.9.0/css/v4-shims.css-->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
-<!--    <script defer src="https://use.fontawesome.com/releases/v5.9.0/js/all.js"></script>-->
     <style>
-        @import url("/nina-iaremenko-jsfw1-basis/stage3/style/header.css");
-        @import url("/nina-iaremenko-jsfw1-basis/stage3/style/main.css");
-        @import url("/nina-iaremenko-jsfw1-basis/stage3/style/footer.css");
+        .sub-menu { opacity: 0;}
+        #authorization {
+            padding: 10px 22px 12px 21px;
+            background-color: #d92727;
+            border: 1px solid #d92727;
+            color: #fff;
+        }
+    </style>
+    <style>
+        @import url("/nina-iaremenko-jsfw1-basis/stage4/style/header.css");
+        @import url("/nina-iaremenko-jsfw1-basis/stage4/style/main.css");
+        @import url("/nina-iaremenko-jsfw1-basis/stage4/style/footer.css");
 
     </style>
-
+    <script> </script>
 </head>
 <body>
     <div class="wrapper">
         <header>
             <div class="container">
                 <a class="logo" href="#">
-                    <img src="/nina-iaremenko-jsfw1-basis/stage3/images/logoform.png" alt="">
+                    <img src="/nina-iaremenko-jsfw1-basis/stage4/images/logoform.png" alt="">
                 </a>
+
+                <input type="checkbox" id="hmt" class="hidden-menu-ticker">
+                <label class="btn-menu" for="hmt">
+                    <span class="first"></span>
+                    <span class="second"></span>
+                    <span class="third"></span>
+                </label>
+
                 <nav class="header-menu">
+                    <button id="auth" type="button" >Authorization</button>
                     <ul>
                         <li><a href="#">Home</a></li>
                         <li>
-                            <a id="course" href="#">Courses<img src="/nina-iaremenko-jsfw1-basis/stage3/images/arrow_down.png" alt=""></a>
+                            <a id="course" href="#">Courses<img src="/nina-iaremenko-jsfw1-basis/stage4/images/arrow_down.png" alt=""></a>
                             <ul class="sub-menu">
                                 <li><a href="#">Courses 1</a></li>
                                 <li><a href="#">Courses 2</a></li>
@@ -41,7 +55,7 @@
                         <li><a href="#">About</a></li>
                         <li><a href="#">Video</a></li>
                         <li>
-                            <a href="#">Interesting<img src="/nina-iaremenko-jsfw1-basis/stage3/images/arrow_down.png" alt=""></a>
+                            <a href="#">Interesting<img src="/nina-iaremenko-jsfw1-basis/stage4/images/arrow_down.png" alt=""></a>
                             <ul class="sub-menu">
                                 <li><a href="#">Interesting 1</a></li>
                                 <li><a href="#">Interesting 2</a></li>
@@ -50,9 +64,9 @@
                         </li>
                     </ul>
                 </nav>
-                <button id="autho" type="button" class="btn btn-danger">Authorization</button>
+                <button id="authorization" type="button" >Authorization</button>
+                <span class="x-off-canvas-bg open-close-menu"></span>
             </div>
-
         </header>
 
         <div class="main">
@@ -67,12 +81,25 @@
                     <span class="error"> </span>
                     <br>
                     <div id="phone_container">
-                        <label for="phone0" >Телефон </label><br>
-                        <input id="phone0" class="phones" type="text" data-validate="0">
-                        <span class="error"> </span>
-                        <input id="plus" type="button" name="plus" value="+"><br>
-                        <input id="phone1" class="phones" type="text" data-validate="0">
-                        <input id ="delete_phone" type="button" name="delete_extra_phone" value="удалить"><br><br>
+                        <div class="form-group">
+                            <div class="form-control">
+                                <label for="phone0" >Телефон </label><br>
+                                <input id="phone0" class="phones" type="text" data-validate="0">
+                                <span class="error"> </span>
+                            </div>
+                            <div class="form-control">
+                                <input id="plus" type="button" name="plus" value="+"><br>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-control">
+                                <input id="phone1" class="phones" type="text" data-validate="0">
+                                <span class="error"> </span>
+                            </div>
+                            <div class="form-control">
+                                <input id ="delete_phone" type="button" name="delete_extra_phone" value="удалить">
+                            </div>
+                        </div>
                     </div>
 
                     <label for="age">Возраст </label><br>
@@ -83,7 +110,7 @@
                         <span>Фотография </span><br>
                         <label for="photo">
                             <div id="label-photo-box">
-                                <img src="/nina-iaremenko-jsfw1-basis/stage3/images/upload.png" alt="Upload foto">
+                                <img src="/nina-iaremenko-jsfw1-basis/stage4/images/upload.png" alt="Upload foto">
                             </div>
 
                         </label>
@@ -92,7 +119,7 @@
                     <span class="error"> </span>
                     <div id="resume_box">
                         <label for="resume">Резюме </label><br>
-                        <textarea id="resume" rows="19" cols="56" name="resume" ></textarea>
+                        <textarea id="resume" name="resume" ></textarea>
                         <span class="error"> </span>
                         <br><br>
                     </div>
@@ -163,3 +190,40 @@
     </div>
 </body>
 </html>
+
+
+<!--                <nav class="navbar navbar-expand-lg navbar-light bg-light">-->
+<!--                    <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--                        <ul class="navbar-nav mr-auto">-->
+<!--                            <li class="nav-item active">-->
+<!--                                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>-->
+<!--                            </li>-->
+<!--                            <li class="nav-item dropdown">-->
+<!--                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                                    Courses<img src="/nina-iaremenko-jsfw1-basis/stage3/images/arrow_down.png" alt="">-->
+<!--                                </a>-->
+<!--                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--                                    <a class="dropdown-item" href="#">Course 1</a>-->
+<!--                                    <a class="dropdown-item" href="#">Courses 2</a>-->
+<!--                                    <a class="dropdown-item" href="#">Courses 3</a>-->
+<!--                                </div>-->
+<!--                            </li>-->
+<!--                            <li class="nav-item">-->
+<!--                                <a class="nav-link" href="#">About</a>-->
+<!--                            </li>-->
+<!--                            <li class="nav-item">-->
+<!--                                <a class="nav-link" href="#">Video</a>-->
+<!--                            </li>-->
+<!--                            <li class="nav-item dropdown">-->
+<!--                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                                    Interesting<img src="/nina-iaremenko-jsfw1-basis/stage3/images/arrow_down.png" alt="">-->
+<!--                                </a>-->
+<!--                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--                                    <a class="dropdown-item" href="#">Interesting 1</a>-->
+<!--                                    <a class="dropdown-item" href="#">Interesting 2</a>-->
+<!--                                    <a class="dropdown-item" href="#">Interesting 3</a>-->
+<!--                                </div>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </nav>-->
