@@ -107,7 +107,7 @@ if (isset($_POST['uploadBtn'])) {
         if (!$link) {
             echo "Ошибка:" . mysqli_connect_errno() . ':' . mysqli_connect_error();
         }
-//            else echo "Соединение с базой прошло успешно";
+            else echo "Соединение с базой прошло успешно";
         $sql = "INSERT INTO `users` (fio, email, age, photo, resume) VALUES ('$fio', '$email', '$age', '$uploadfile', '$resume');";
         $result_user = mysqli_query($link, $sql);
         if ($result_user) {
