@@ -151,12 +151,12 @@ function test_input($data)
 <form action="" method="post" enctype='multipart/form-data'>
     <fieldset>
         <label for="fio">ФИО </label><input type="text" name="fio" value="<?= $fio ?>">
-        <span class="error">* <?php echo $fioErr; ?></span>
+        <span class="error"> <?php echo $fioErr; ?></span>
         <br><br>
         <label for="email">Email </label><input type="text" name="email" value="<?= $email ?>">
-        <span class="error">* <?php echo $emailErr; ?></span>
+        <span class="error"> <?php echo $emailErr; ?></span>
         <br><br>
-        <label for="phone">Телефон </label><input type="text" name="phone" value="<?= $phone ?>">
+        <label for="phone">Телефон </label><input type="text" name="phone0" value="<?= $phone ?>">
         <span class="error"> <?php echo $phoneErr; ?></span>
         <br><br>
         <input type="submit" name="plus" value="Добавить телефон">
@@ -172,7 +172,7 @@ function test_input($data)
         <br>
 
         <label for="age">Возраст </label><input type="text" name="age" value="<?= $age ?>">
-        <span class="error">* <?php echo $ageErr; ?></span>
+        <span class="error"> <?php echo $ageErr; ?></span>
         <br><br>
         <span>Загрузить фото: </span><input type="file" name="photo"/>
         <br><br>

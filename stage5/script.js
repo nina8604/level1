@@ -6,7 +6,7 @@
 //             htmlPhone += 'Телефон: <b>' + inputs[i].value + '</b><br>';
 //     document.getElementById('phones_inner').innerHTML = htmlPhone;
 // }
-
+let count = 1;
 let error = "Данные введены не верною Повторите попытку.";
 let errorEmpty = "*данное поле обязательно для заполнения.";
 function validate_fio() {
@@ -163,41 +163,21 @@ function validate_resume() {
     }
 }
 
-$('.form').submit(function (event) {
-    event.preventDefault();
-    console.log(checkForm());
-    if (checkForm()){
-        $.ajax({
-            url:     'send-form.php',
-            type:     "POST",
-            // dataType: "html", //формат данных
-            data: $(this).serialize(),
-            success: function(response) { //Данные отправлены успешно
-                alert('OK');
-            },
-            error: function(response) { // Данные не отправлены
-                alert('error');
-            }
-        });
-    }else {
-        return;
-    }
 
-});
 
 function checkForm() {
     let validate = true;
-console.log('fio',validate_fio());
+// console.log('fio',validate_fio());
     if ( !validate_fio() ) 		validate = false;
-    console.log('email',validate_email());
+    // console.log('email',validate_email());
     if ( !validate_email() )  	validate = false;
-    console.log('validate_phones',validate_phones());
+    // console.log('validate_phones',validate_phones());
     if ( !validate_phones() ) 	validate = false;
-    console.log('validate_age',validate_age());
+    // console.log('validate_age',validate_age());
     if ( !validate_age() ) 		validate = false;
-    console.log('validate_photo',validate_photo());
+    // console.log('validate_photo',validate_photo());
     if ( !validate_photo() ) 	validate = false;
-    console.log('validate_resume',validate_resume());
+    // console.log('validate_resume',validate_resume());
     if ( !validate_resume() ) 	validate = false;
 
     return validate;
@@ -213,7 +193,7 @@ $(document).ready(function() {
         input.id = "phone" + count;
         input.setAttribute('data-validate', '0');
         // input.setAttribute("placeholder", "+380(xx)xxx-x-xxx");
-        input.name = "value[]";
+        input.name = "phone" + count;
         let span = document.createElement('SPAN');
         let pre = document.createElement('PRE');
         let deleteBtn = document.createElement('INPUT');
@@ -264,6 +244,27 @@ $(document).ready(function() {
         validate_resume();
     });
 
+    $('.form').submit(function (event) {
+        event.preventDefault();
+        console.log(checkForm());
+        console.log($(this).serialize());
+        if (checkForm()){
+            $.ajax({
+                url:     'send-form.php',
+                type:     "POST",
+                // dataType: "html", //формат данных
+                data: $(this).serialize(),
+                success: function(response) { //Данные отправлены успешно
+                    // console.log(JSON.parse(response));
+                    alert('OK');
+                },
+                error: function(response) { // Данные не отправлены
+                    alert('error');
+                }
+            });
+        }else {
+            return;
+        }
 
-
+    });
 });

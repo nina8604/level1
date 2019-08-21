@@ -98,12 +98,12 @@ function validate_age() {
             age.nextElementSibling.innerHTML = error;
             htmlAge = '';
             docplusument.getElementById('age_inner').innerHTML = htmlAge;
-            return true;
+            return false;
         }else {
             htmlAge = 'Возраст: <b>' + ageValue + '</b><br>';
             document.getElementById('age_inner').innerHTML = htmlAge;
             age.nextElementSibling.innerHTML = '';
-            return false;
+            return true;
         }
     }
 }
