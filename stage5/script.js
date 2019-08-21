@@ -1,34 +1,19 @@
-// function show_valid_phones() {
-//     let inputs = document.getElementById('phone_container').getElementsByClassName('phones');
-//     let htmlPhone = '';
-//     for (let i = 0; i < inputs.length; i++)
-//         if (inputs[i].getAttribute('data-validate') == 1)
-//             htmlPhone += 'Телефон: <b>' + inputs[i].value + '</b><br>';
-//     document.getElementById('phones_inner').innerHTML = htmlPhone;
-// }
-let count = 1;
+
 let error = "Данные введены не верною Повторите попытку.";
 let errorEmpty = "*данное поле обязательно для заполнения.";
 function validate_fio() {
     let letters = /^[A-Za-z]+$/;
     let fio = document.getElementById('fio');
     let fioValue = fio.value;
-    // let htmlFio = '';
     if (fioValue == ""){
         fio.nextElementSibling.innerHTML = errorEmpty;
-        // htmlFio = '';
-        // document.getElementById('fio_inner').innerHTML = htmlFio;
         return false;
     }else {
         if (fioValue.match(letters)){
-            // htmlFio = 'ФИО: <b>' + fioValue + '</b><br>';
-            // document.getElementById('fio_inner').innerHTML = htmlFio;
             fio.nextElementSibling.innerHTML = '';
             return true;
         }else {
             fio.nextElementSibling.innerHTML = error;
-            // htmlFio = '';
-            // document.getElementById('fio_inner').innerHTML = htmlFio;
             return false;
         }
     }
@@ -41,19 +26,13 @@ function validate_email() {
     // let htmlEmail = '';
     if (emailValue == "") {
         email.nextElementSibling.innerHTML = errorEmpty;
-        // htmlEmail = '';
-        // document.getElementById('email_inner').innerHTML = htmlEmail;
         return false;
     } else {
         if (emailValue.match(mailFormat)){
-            // htmlEmail = 'email: <b>' + emailValue + '</b><br>';
-            // document.getElementById('email_inner').innerHTML = htmlEmail;
             email.nextElementSibling.innerHTML = '';
             return true;
         }else {
             email.nextElementSibling.innerHTML = error;
-            // htmlEmail = '';
-            // document.getElementById('email_inner').innerHTML = htmlEmail;
             return false;
         }
     }
@@ -90,18 +69,12 @@ function validate_age() {
     // let htmlAge = '';
     if (ageValue == "") {
         age.nextElementSibling.innerHTML = errorEmpty;
-        // htmlAge = '';
-        // document.getElementById('age_inner').innerHTML = htmlAge;
         return false;
     } else {
         if (isNaN(ageValue) || ageValue <= 0 || ageValue > 150 || ageValue.indexOf(".") >= 0){
             age.nextElementSibling.innerHTML = error;
-            // htmlAge = '';
-            // docplusument.getElementById('age_inner').innerHTML = htmlAge;
             return false;
         }else {
-            // htmlAge = 'Возраст: <b>' + ageValue + '</b><br>';
-            // document.getElementById('age_inner').innerHTML = htmlAge;
             age.nextElementSibling.innerHTML = '';
             return true;
         }
@@ -114,33 +87,16 @@ function validate_photo() {
     let photoFile = photo.files[0];
     if (photoFile === undefined){
         photo.nextElementSibling.innerHTML = errorEmpty;
-        // document.getElementById('photo_inner').innerHTML = '';
         return false;
     } else {
         if (!photoFile.type.match('image/jp.*')) {
             photo.nextElementSibling.innerHTML = "Файл неверного формата. Только JPG формат. Повторите попытку";
-            // document.getElementById('photo_inner').innerHTML = '';
             return false;
         }
         if (photoFile.size > validateSize ) {
             photo.nextElementSibling.innerHTML = "Файл превышает допустимый размер 2МВ. Повторите попытку.";
-            // document.getElementById('photo_inner').innerHTML = '';
             return false;
         }
-        // let reader = new FileReader();
-        // reader.onload = (function(theFile) {
-        //     return function(e) {
-        //         document.getElementById('photo_inner').innerHTML = '';
-        //         let span = document.createElement('span');
-        //         span.innerHTML = ['Ваше фото: <img class="thumb" src="', e.target.result,
-        //             '" title="', escape(theFile.name), '" width="150"/>'].join('');
-        //         document.getElementById('photo_inner').appendChild(span);
-        //         document.getElementById('photo').nextElementSibling.innerHTML = '';
-        //     };
-        // })(photoFile);
-        //
-        // // Read in the image file as a data URL.
-        // reader.readAsDataURL(photoFile);
         photo.nextElementSibling.innerHTML = '';
         return true;
     }
@@ -149,15 +105,10 @@ function validate_photo() {
 function validate_resume() {
     let resume = document.getElementById('resume');
     let resumeValue = resume.value;
-    // let htmlResume = '';
     if (resumeValue == ''){
         resume.nextElementSibling.innerHTML = errorEmpty;
-        // htmlResume = '';
-        // document.getElementById('resume_inner').innerHTML = htmlResume;
         return false;
     }else {
-        // htmlResume = 'Резюме: <pre>' + resumeValue + '</pre><br>';
-        // document.getElementById('resume_inner').innerHTML = htmlResume;
         resume.nextElementSibling.innerHTML = '';
         return true;
     }
@@ -167,7 +118,7 @@ function validate_resume() {
 
 function checkForm() {
     let validate = true;
-// console.log('fio',validate_fio());
+    // console.log('fio',validate_fio());
     if ( !validate_fio() ) 		validate = false;
     // console.log('email',validate_email());
     if ( !validate_email() )  	validate = false;
@@ -192,8 +143,7 @@ $(document).ready(function() {
         input.className = 'phones';
         input.id = "phone" + count;
         input.setAttribute('data-validate', '0');
-        // input.setAttribute("placeholder", "+380(xx)xxx-x-xxx");
-        input.name = "phone" + count;
+        input.name = "phone[]";
         let span = document.createElement('SPAN');
         let pre = document.createElement('PRE');
         let deleteBtn = document.createElement('INPUT');
@@ -211,7 +161,6 @@ $(document).ready(function() {
             this.previousElementSibling.remove();
             this.nextElementSibling.remove();
             this.remove();
-            // show_valid_phones();
         });
 
     });
@@ -228,7 +177,6 @@ $(document).ready(function() {
     phone_container.addEventListener( 'focusout', function(event) {
         if (event.target.className == 'phones') {
             validate_phone(event.target);
-            // show_valid_phones();
         }
     });
 
@@ -246,17 +194,24 @@ $(document).ready(function() {
 
     $('.form').submit(function (event) {
         event.preventDefault();
-        console.log(checkForm());
-        console.log($(this).serialize());
         if (checkForm()){
+            var fd = new FormData(this);
+            var files = $('input[type=file]')[0].files[0];
+            fd.append('file',files);
             $.ajax({
                 url:     'send-form.php',
                 type:     "POST",
                 // dataType: "html", //формат данных
-                data: $(this).serialize(),
+                processData: false,
+                cache: false,
+                contentType: false,
+                dataType: 'json',
+                data: fd,
                 success: function(response) { //Данные отправлены успешно
-                    // console.log(JSON.parse(response));
                     alert('OK');
+                    console.log(response);
+                    // if (response == '') {console.log(JSON.parse(response));}
+                    if (response !== '') {console.log(response);}
                 },
                 error: function(response) { // Данные не отправлены
                     alert('error');

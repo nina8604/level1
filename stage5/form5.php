@@ -85,7 +85,7 @@
                         <div class="form-group">
                             <div class="form-control">
                                 <label for="phone0" >Телефон </label><br>
-                                <input id="phone0" name="phone0" class="phones" type="text" data-validate="0" value="">
+                                <input id="phone0" name="phone[]" class="phones" type="text" data-validate="0" value="">
                                 <span class="error"> </span>
                             </div>
                             <div class="form-control">
