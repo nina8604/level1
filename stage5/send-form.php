@@ -1,6 +1,4 @@
 <?php
-echo json_encode(["Данные введены не верно. Повторите попытку.", "*данное поле обязательно для заполнения."]);
-http_response_code(400);
 // constant list
 const NEW_FILE_DIR = "/nina-iaremenko-jsfw1-basis/stage5/images/";
 const EXTENSIONS = array("jpeg", "jpg", "png");
@@ -18,7 +16,6 @@ $errorEmpty = "*данное поле обязательно для заполн
 
 $fio = (isset($_POST['fio'])) ? $_POST['fio'] : '';
 $email = (isset($_POST['email'])) ? $_POST['email'] : '';
-//$phone = (isset($_POST['phone'])) ? $_POST['phone'] : '';
 $phones = (isset($_POST['phone'])) ? $_POST['phone'] : [];
 $age = (isset($_POST['age'])) ? $_POST['age'] : '';
 $resume = (isset($_POST['resume'])) ? $_POST['resume'] : '';
@@ -125,7 +122,7 @@ if (count($allErr) > 0) {
         }
     } else $dataErr = "Данные в базу данных занесены не были";
     mysqli_close($link);
-    if ($result_phones) {
+    if ($result_user && $result_phones) {
         $fio = $email = $age = $photo = $resume = "";
         $phones = [];
         $success = "Данные в базу данных занесены успешно";

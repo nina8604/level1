@@ -92,15 +92,6 @@
                                 <input id="plus" type="button" name="plus" value="+"><br>
                             </div>
                         </div>
-<!--                        <div class="form-group">-->
-<!--                            <div class="form-control">-->
-<!--                                <input id="phone1" class="phones" type="text" data-validate="0">-->
-<!--                                <span class="error"> </span>-->
-<!--                            </div>-->
-<!--                            <div class="form-control">-->
-<!--                                <input id ="delete_phone" type="button" name="delete_extra_phone" value="удалить">-->
-<!--                            </div>-->
-<!--                        </div>-->
                     </div>
 
                     <label for="age">Возраст </label><br>

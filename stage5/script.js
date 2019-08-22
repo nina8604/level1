@@ -201,17 +201,13 @@ $(document).ready(function() {
             $.ajax({
                 url:     'send-form.php',
                 type:     "POST",
-                // dataType: "html", //формат данных
                 processData: false,
                 cache: false,
                 contentType: false,
                 dataType: 'json',
                 data: fd,
                 success: function(response) { //Данные отправлены успешно
-                    alert('OK');
-                    console.log(response);
-                    // if (response == '') {console.log(JSON.parse(response));}
-                    if (response !== '') {console.log(response);}
+                    if (response !== '') {alert(response);}
                 },
                 error: function(response) { // Данные не отправлены
                     alert('error');

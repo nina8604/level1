@@ -54,18 +54,42 @@ form fieldset #phone_container {
     margin-left: 20px;
 }
 
-#phone_container .phones {
+#phone_container .form-group .form-control .phones,
+#phone_container > .phones {
     height: 39px;
     margin-top: 7px;
     box-sizing: border-box;
 }
-#phone0, #phone1 {
+#phone0 {
     width: 100%;
+}
+#phone_container > .phones {
+    width: 73%;
 }
 #phone_container .form-group .form-control:first-child #phone1 {
     margin-top: 0;
 }
-#plus, #delete_phone {
+
+#phone_container .delete_extra_phone {
+    float: right;
+    margin-top: 7px;
+    width: 108px;
+    height: 39px;
+    border-radius: 2px;
+    filter: brightness(1);
+    transition: filter 0.5s ease;
+    background-color: #d92727;
+    border: 1px solid #d92727;
+    color: white;
+    font-size: 12px;
+}
+#phone_container .delete_extra_phone:hover {
+    cursor: pointer;
+    filter: brightness(0.9);
+    color: white;
+}
+#plus,
+#delete_phone {
     min-width: 108px;
     height: 39px;
     border-radius: 2px;
