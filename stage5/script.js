@@ -1,19 +1,20 @@
 
-let error = "Данные введены не верною Повторите попытку.";
-let errorEmpty = "*данное поле обязательно для заполнения.";
+let error = "данные введены не верною. Повторите попытку.";
+let errorEmpty = "* данное поле обязательно для заполнения.";
 function validate_fio() {
-    let letters = /^[A-Za-z]+$/;
+    let fioReg = /^([А-ЯA-Z]|[А-ЯA-Z][\x27а-яa-z]{1,}|[А-ЯA-Z][\x27а-яa-z]{1,}\-([А-ЯA-Z][\x27а-яa-z]{1,}|(оглы)|(кызы)))\040[А-ЯA-Z][\x27а-яa-z]{1,}(\040[А-ЯA-Z][\x27а-яa-z]{1,})?$/;
     let fio = document.getElementById('fio');
     let fioValue = fio.value;
     if (fioValue == ""){
-        fio.nextElementSibling.innerHTML = errorEmpty;
+        fio.setAttribute('placeholder', errorEmpty);
         return false;
     }else {
-        if (fioValue.match(letters)){
-            fio.nextElementSibling.innerHTML = '';
+        if (fioValue.match(fioReg)){
+            fio.setAttribute('placeholder', '');
             return true;
         }else {
-            fio.nextElementSibling.innerHTML = error;
+            fio.value = '';
+            fio.setAttribute('placeholder', error);
             return false;
         }
     }
@@ -25,14 +26,15 @@ function validate_email() {
     let emailValue = email.value;
     // let htmlEmail = '';
     if (emailValue == "") {
-        email.nextElementSibling.innerHTML = errorEmpty;
+        email.setAttribute('placeholder', errorEmpty);
         return false;
     } else {
         if (emailValue.match(mailFormat)){
-            email.nextElementSibling.innerHTML = '';
+            email.setAttribute('placeholder', '');
             return true;
         }else {
-            email.nextElementSibling.innerHTML = error;
+            email.value = '';
+            email.setAttribute('placeholder', error);
             return false;
         }
     }
@@ -44,13 +46,17 @@ function validate_phone(input) {
     input.setAttribute('data-validate', '0');
 
     if (input.value == '')
-        input.nextElementSibling.innerHTML = errorEmpty;
+        input.setAttribute('placeholder', errorEmpty);
+
     else
     if (input.value.match(phoneFormat)) {
         input.setAttribute('data-validate', '1');
-        input.nextElementSibling.innerHTML = '';
-    } else
-        input.nextElementSibling.innerHTML = error;
+        input.setAttribute('placeholder', '');
+    } else{
+        input.value = '';
+        input.setAttribute('placeholder', error);
+    }
+
 
     return input.getAttribute('data-validate') == '1';
 }
@@ -68,14 +74,15 @@ function validate_age() {
     let ageValue = age.value;
     // let htmlAge = '';
     if (ageValue == "") {
-        age.nextElementSibling.innerHTML = errorEmpty;
+        age.setAttribute('placeholder', errorEmpty);
         return false;
     } else {
         if (isNaN(ageValue) || ageValue <= 0 || ageValue > 150 || ageValue.indexOf(".") >= 0){
-            age.nextElementSibling.innerHTML = error;
+            age.value = '';
+            age.setAttribute('placeholder', error);
             return false;
         }else {
-            age.nextElementSibling.innerHTML = '';
+            age.setAttribute('placeholder', '');
             return true;
         }
     }
@@ -87,17 +94,34 @@ function validate_photo() {
     let photoFile = photo.files[0];
     if (photoFile === undefined){
         photo.nextElementSibling.innerHTML = errorEmpty;
+        document.getElementById('label-photo-box').innerHTML = '<img src="/nina-iaremenko-jsfw1-basis/stage5/images/upload.png" alt="Upload foto">';
         return false;
     } else {
         if (!photoFile.type.match('image/jp.*')) {
             photo.nextElementSibling.innerHTML = "Файл неверного формата. Только JPG формат. Повторите попытку";
+            document.getElementById('label-photo-box').innerHTML = '<img src="/nina-iaremenko-jsfw1-basis/stage5/images/upload.png" alt="Upload foto">';
             return false;
         }
         if (photoFile.size > validateSize ) {
             photo.nextElementSibling.innerHTML = "Файл превышает допустимый размер 2МВ. Повторите попытку.";
+            document.getElementById('label-photo-box').innerHTML = '<img src="/nina-iaremenko-jsfw1-basis/stage5/images/upload.png" alt="Upload foto">';
             return false;
         }
-        photo.nextElementSibling.innerHTML = '';
+
+
+
+        let reader = new FileReader();
+        reader.onload = (function(theFile) {
+            return function(e) {
+                document.getElementById('label-photo-box').innerHTML = '';
+                document.getElementById('label-photo-box').innerHTML = ['<img class="thumb" src="', e.target.result,
+                    '" title="', escape(theFile.name), '" width="150" height="127" style="margin-top:0;"/>'].join('');
+                document.getElementById('photo').nextElementSibling.innerHTML = '';
+            };
+        })(photoFile);
+
+        // Read in the image file as a data URL.
+        reader.readAsDataURL(photoFile);
         return true;
     }
 }
@@ -106,10 +130,10 @@ function validate_resume() {
     let resume = document.getElementById('resume');
     let resumeValue = resume.value;
     if (resumeValue == ''){
-        resume.nextElementSibling.innerHTML = errorEmpty;
+        resume.setAttribute('placeholder', errorEmpty);
         return false;
     }else {
-        resume.nextElementSibling.innerHTML = '';
+        resume.setAttribute('placeholder', '');
         return true;
     }
 }
@@ -118,17 +142,11 @@ function validate_resume() {
 
 function checkForm() {
     let validate = true;
-    // console.log('fio',validate_fio());
     if ( !validate_fio() ) 		validate = false;
-    // console.log('email',validate_email());
     if ( !validate_email() )  	validate = false;
-    // console.log('validate_phones',validate_phones());
     if ( !validate_phones() ) 	validate = false;
-    // console.log('validate_age',validate_age());
     if ( !validate_age() ) 		validate = false;
-    // console.log('validate_photo',validate_photo());
     if ( !validate_photo() ) 	validate = false;
-    // console.log('validate_resume',validate_resume());
     if ( !validate_resume() ) 	validate = false;
 
     return validate;
@@ -145,6 +163,7 @@ $(document).ready(function() {
         input.setAttribute('data-validate', '0');
         input.name = "phone[]";
         let span = document.createElement('SPAN');
+        span.className = 'error';
         let pre = document.createElement('PRE');
         let deleteBtn = document.createElement('INPUT');
         deleteBtn.type = 'button';

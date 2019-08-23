@@ -109,7 +109,6 @@
                         <input id="photo" type="file" name="photo" />
                         <span class="error"> </span>
                     </div>
-                    <span class="error"> </span>
                     <div id="resume_box">
                         <label for="resume">Резюме </label><br>
                         <textarea id="resume" name="resume" ></textarea>
