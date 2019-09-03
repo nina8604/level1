@@ -1,20 +1,21 @@
 
-let error = "данные введены не верною. Повторите попытку.";
-let errorEmpty = "* данное поле обязательно для заполнения.";
+let error = " - данные введены не верною. Повторите попытку.";
+let errorEmpty = " * данное поле обязательно для заполнения.";
 function validate_fio() {
     let fioReg = /^([А-ЯA-Z]|[А-ЯA-Z][\x27а-яa-z]{1,}|[А-ЯA-Z][\x27а-яa-z]{1,}\-([А-ЯA-Z][\x27а-яa-z]{1,}|(оглы)|(кызы)))\040[А-ЯA-Z][\x27а-яa-z]{1,}(\040[А-ЯA-Z][\x27а-яa-z]{1,})?$/;
     let fio = document.getElementById('fio');
     let fioValue = fio.value;
     if (fioValue == ""){
+        fio.nextElementSibling.innerHTML = '';
         fio.setAttribute('placeholder', errorEmpty);
         return false;
     }else {
         if (fioValue.match(fioReg)){
             fio.setAttribute('placeholder', '');
+            fio.nextElementSibling.innerHTML = '';
             return true;
         }else {
-            fio.value = '';
-            fio.setAttribute('placeholder', error);
+            fio.nextElementSibling.innerHTML = error;
             return false;
         }
     }
@@ -26,15 +27,16 @@ function validate_email() {
     let emailValue = email.value;
     // let htmlEmail = '';
     if (emailValue == "") {
+        email.nextElementSibling.innerHTML = '';
         email.setAttribute('placeholder', errorEmpty);
         return false;
     } else {
         if (emailValue.match(mailFormat)){
             email.setAttribute('placeholder', '');
+            email.nextElementSibling.innerHTML = '';
             return true;
         }else {
-            email.value = '';
-            email.setAttribute('placeholder', error);
+            email.nextElementSibling.innerHTML = error;
             return false;
         }
     }
@@ -45,16 +47,17 @@ let phoneFormat = /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/;
 function validate_phone(input) {
     input.setAttribute('data-validate', '0');
 
-    if (input.value == '')
+    if (input.value == ''){
+        input.nextElementSibling.innerHTML = '';
         input.setAttribute('placeholder', errorEmpty);
 
-    else
+    } else
     if (input.value.match(phoneFormat)) {
         input.setAttribute('data-validate', '1');
         input.setAttribute('placeholder', '');
+        input.nextElementSibling.innerHTML = '';
     } else{
-        input.value = '';
-        input.setAttribute('placeholder', error);
+        input.nextElementSibling.innerHTML = error;
     }
 
 
@@ -66,6 +69,7 @@ function validate_phones() {
     for (let i = 0; i < inputs.length; i++)
         if ( !validate_phone(inputs[i]) )
             validate = false;
+
     return validate;
 }
 
@@ -74,15 +78,17 @@ function validate_age() {
     let ageValue = age.value;
     // let htmlAge = '';
     if (ageValue == "") {
+        age.nextElementSibling.innerHTML = '';
         age.setAttribute('placeholder', errorEmpty);
         return false;
     } else {
         if (isNaN(ageValue) || ageValue <= 0 || ageValue > 150 || ageValue.indexOf(".") >= 0){
-            age.value = '';
-            age.setAttribute('placeholder', error);
+            age.nextElementSibling.innerHTML = error;
+
             return false;
         }else {
             age.setAttribute('placeholder', '');
+            age.nextElementSibling.innerHTML = '';
             return true;
         }
     }
@@ -157,29 +163,27 @@ $(document).ready(function() {
     // create new fields for extra phones
     plus.addEventListener("click", function(){
         let input = document.createElement('INPUT');
-        input.type = 'text';
-        input.className = 'phones';
         input.id = "phone" + count;
-        input.setAttribute('data-validate', '0');
-        input.name = "phone[]";
-        let span = document.createElement('SPAN');
-        span.className = 'error';
-        let pre = document.createElement('PRE');
         let deleteBtn = document.createElement('INPUT');
         deleteBtn.type = 'button';
         deleteBtn.setAttribute("class", "delete_extra_phone");
         deleteBtn.value = 'Удалить';
 
-        document.querySelector('#phone_container').appendChild(input);
-        document.querySelector('#phone_container').appendChild(span);
-        document.querySelector('#phone_container').appendChild(deleteBtn);
-        document.querySelector('#phone_container').appendChild(pre);
+        let form_group = document.createElement('DIV');
+        form_group.className = 'form-group';
+
+        let html_phone = '<div class="form-control">' +
+                                '<input id="'+ input.id +'" name="phone[]" class="phones" type="text" data-validate="0" value="">' +
+                                '<span class="error"> </span>' +
+                            '</div>' +
+                            '<div class="form-control"></div>';
+        form_group.innerHTML = html_phone;
+        document.querySelector('#phone_container').appendChild(form_group);
+        document.querySelector('#phone_container').lastChild.lastChild.appendChild(deleteBtn);
         count++;
+
         deleteBtn.addEventListener("click", function() {
-            this.previousElementSibling.remove();
-            this.previousElementSibling.remove();
-            this.nextElementSibling.remove();
-            this.remove();
+            this.parentNode.parentNode.remove();
         });
 
     });

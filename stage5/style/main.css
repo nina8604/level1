@@ -1,16 +1,17 @@
 .main {
     width: 100%;
-    height: 1150px;
     background-image: url("/nina-iaremenko-jsfw1-basis/stage5/images/main.png");
     background-repeat: no-repeat;
     background-size: cover;
+    background-position-y: bottom;
+    box-sizing: border-box;
+    min-height: 100%;
+    padding-bottom: 350px;
 }
 form {
     margin: 0 auto;
     max-width: 536px;
-    padding-top: 53px;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding: 53px 40px 60px;
 }
 form fieldset {
     padding: 26px 28px 0 30px;
@@ -23,6 +24,7 @@ form fieldset label {
     padding-left: 1px;
     color: #666;
 }
+
 form fieldset input {
     width: 98%;
     max-width: 470px;
@@ -31,6 +33,13 @@ form fieldset input {
     margin-bottom: 15px;
     padding-left: 10px;
     border: 1px solid #b7b7b7
+}
+form fieldset .error {
+    font-family: 'open_sans';
+    font-size: 12px;
+    color: #d92727;
+    margin-top: -10px;
+    display: inherit;
 }
 form fieldset input::placeholder {
     font-family: 'open_sans';
@@ -45,11 +54,6 @@ form fieldset #phone_container {
     display: inline-flex;
     width: 100%;
     justify-content: space-between;
-}
-#phone_container .form-group:first-child {
-    align-items: flex-end;
-}
-#phone_container .form-group:nth-child(2n) {
     align-items: flex-start;
 }
 #phone_container .form-group .form-control:first-child {
@@ -58,8 +62,24 @@ form fieldset #phone_container {
 }
 #phone_container .form-group .form-control:nth-child(2n) {
     margin-left: 20px;
+    padding-top: 0;
+    margin-top: 0;
 }
-
+#phone_container .form-group .form-control:first-child .phones {
+    margin-top: 0;
+    width: 100%;
+}
+#phone_container .form-group:first-child .form-control:first-child .phones {
+    margin-top: 7px;
+}
+#phone_container .form-group:first-child .form-control:first-child {
+    flex: 1 1 100%;
+    box-sizing: border-box;
+}
+#phone_container .form-group:first-child .form-control:nth-child(2n) {
+    margin-left: 20px;
+    padding-top: 25px;
+}
 #phone_container .form-group .form-control .phones,
 #phone_container > .phones {
     height: 39px;
@@ -75,10 +95,9 @@ form fieldset #phone_container {
 #phone_container .form-group .form-control:first-child #phone1 {
     margin-top: 0;
 }
-
 #phone_container .delete_extra_phone {
     float: right;
-    margin-top: 7px;
+    margin-top: 0;
     width: 108px;
     height: 39px;
     border-radius: 2px;
@@ -105,6 +124,7 @@ form fieldset #phone_container {
 #plus {
     background-color: #f6f6f6;
     border: 1px solid #b7b7b7;
+    margin-top: 0;
 }
 #phone_container #plus:hover, #phone_container #delete_phone:hover {
     cursor: pointer;
