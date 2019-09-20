@@ -161,6 +161,7 @@ function checkForm() {
 $(document).ready(function() {
     let count = 1;
     // create new fields for extra phones
+
     plus.addEventListener("click", function(){
         let input = document.createElement('INPUT');
         input.id = "phone" + count;
